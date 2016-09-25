@@ -7,26 +7,20 @@ ARG SHA256_HASH="6fb52277b658ac00a812501a88cfe79e03750c5436dcd7427a707aa4459a851
 ENV GID=991 UID=991
 
 RUN echo "@commuedge https://nl.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
+ && echo "@community https://nl.alpinelinux.org/alpine/v3.4/community" >> /etc/apk/repositories \
  && BUILD_DEPS=" \
     ca-certificates \
     openssl" \
  && apk -U add \
     ${BUILD_DEPS} \
-    nginx \
-    s6 \
     su-exec \
-    php7-fpm@commuedge \
+    tini@community \
+    php7@commuedge \
     php7-session@commuedge \
     php7-pdo_mysql@commuedge \
     php7-pdo_pgsql@commuedge \
     php7-pdo_sqlite@commuedge \
  && cd /tmp \
- # Tune PHP settings for uploading large dumps
- && sed -i \
-   -e 's/\(max_execution_time =\).*/\1 0/' \
-   -e 's/\(upload_max_filesize =\).*/\1 2000M/' \
-   -e 's/\(post_max_size =\).*/\1 2000M/' \
-   -e 's/\(memory_limit =\).*/\1 -1/' /etc/php7/php.ini \
  # Download and install adminer and pepa-linha theme
  && ADMINER_FILE="adminer-${VERSION}.php" \
  && wget -q https://www.adminer.org/static/download/${VERSION}/${ADMINER_FILE} \
@@ -34,18 +28,14 @@ RUN echo "@commuedge https://nl.alpinelinux.org/alpine/edge/community" >> /etc/a
  && CHECKSUM=$(sha256sum ${ADMINER_FILE} | awk '{print $1}') \
  && if [ "${CHECKSUM}" != "${SHA256_HASH}" ]; then echo "Warning! Checksum does not match!" && exit 1; fi \
  && echo "All seems good, hash is valid." \
- && mkdir /adminer && mv ${ADMINER_FILE} /adminer/adminer.php \
+ && mkdir /adminer && mv ${ADMINER_FILE} /adminer/index.php \
  && wget -q https://raw.githubusercontent.com/vrana/adminer/master/designs/pepa-linha/adminer.css -P /adminer \
  && apk del ${BUILD_DEPS} \
  && rm -rf /var/cache/apk/* /tmp/*
 
-COPY nginx.conf /etc/nginx/nginx.conf
-COPY php-fpm.conf /etc/php7/php-fpm.conf
-COPY s6.d /etc/s6.d
 COPY run.sh /usr/local/bin/run.sh
-
-RUN chmod +x /usr/local/bin/* /etc/s6.d/*/* /etc/s6.d/.s6-svscan/*
+RUN chmod +x /usr/local/bin/run.sh
 
 EXPOSE 8888
 
-CMD ["run.sh"]
+CMD ["/sbin/tini", "--", "run.sh"]
