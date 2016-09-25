@@ -21,6 +21,13 @@ RUN echo "@commuedge https://nl.alpinelinux.org/alpine/edge/community" >> /etc/a
     php7-pdo_pgsql@commuedge \
     php7-pdo_sqlite@commuedge \
  && cd /tmp \
+ # Tune PHP settings for uploading large dumps
+ && sed -i \
+   -e 's/\(max_execution_time =\).*/\1 0/' \
+   -e 's/\(upload_max_filesize =\).*/\1 2000M/' \
+   -e 's/\(post_max_size =\).*/\1 2000M/' \
+   -e 's/\(memory_limit =\).*/\1 -1/' /etc/php7/php.ini \
+ # Download and install adminer and pepa-linha theme
  && ADMINER_FILE="adminer-${VERSION}.php" \
  && wget -q https://www.adminer.org/static/download/${VERSION}/${ADMINER_FILE} \
  && echo "Verifying integrity of ${ADMINER_FILE}..." \

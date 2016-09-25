@@ -35,8 +35,8 @@ https://github.com/Wonderfall/dockerfiles/tree/master/nginx
 adminer:
   image: hardware/adminer
   container_name: adminer
-links:
-  - mariadb:mariadb
+  links:
+    - mariadb:mariadb
 
 mariadb:
   image: mariadb:10.1
