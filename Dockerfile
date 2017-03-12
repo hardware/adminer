@@ -1,13 +1,14 @@
-FROM alpine:3.4
-MAINTAINER Hardware <contact@meshup.net>
+FROM alpine:3.5
+
+LABEL description "Adminer is a full-featured database management tool" \
+      maintainer="Hardware <contact@meshup.net>"
 
 ARG VERSION=4.2.5
 ARG SHA256_HASH="6fb52277b658ac00a812501a88cfe79e03750c5436dcd7427a707aa4459a8516"
 
 ENV GID=991 UID=991
 
-RUN echo "@commuedge https://nl.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
- && echo "@community https://nl.alpinelinux.org/alpine/v3.4/community" >> /etc/apk/repositories \
+RUN echo "@community https://nl.alpinelinux.org/alpine/v3.5/community" >> /etc/apk/repositories \
  && BUILD_DEPS=" \
     ca-certificates \
     openssl" \
@@ -15,11 +16,11 @@ RUN echo "@commuedge https://nl.alpinelinux.org/alpine/edge/community" >> /etc/a
     ${BUILD_DEPS} \
     su-exec \
     tini@community \
-    php7@commuedge \
-    php7-session@commuedge \
-    php7-pdo_mysql@commuedge \
-    php7-pdo_pgsql@commuedge \
-    php7-pdo_sqlite@commuedge \
+    php7@community \
+    php7-session@community \
+    php7-pdo_mysql@community \
+    php7-pdo_pgsql@community \
+    php7-pdo_sqlite@community \
  && cd /tmp \
  # Download and install adminer and pepa-linha theme
  && ADMINER_FILE="adminer-${VERSION}.php" \

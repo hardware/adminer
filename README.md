@@ -9,7 +9,7 @@ Adminer (formerly phpMinAdmin) is a full-featured database management tool writt
 ### Features
 
 - Lightweight & secure image (no root process)
-- Based on Alpine Linux 3.4
+- Based on Alpine Linux 3.5
 - Latest adminer version (4.2.5)
 - MySQL/MariaDB/PostgreSQL/SQLite drivers
 
