@@ -9,13 +9,13 @@ Adminer (formerly phpMinAdmin) is a full-featured database management tool writt
 ### Features
 
 - Lightweight & secure image (no root process)
-- Based on Alpine Linux 3.5
-- Latest adminer version (4.2.5)
+- Based on Alpine Linux
+- Latest adminer version (4.3.0)
 - MySQL/MariaDB/PostgreSQL/SQLite drivers
 
 ### Built-time variables
 
-- **VERSION** : version of adminer (default: **4.2.5**)
+- **VERSION** : version of adminer (default: **4.3.0**)
 - **SHA256_HASH** : SHA256 hash of adminer php file
 
 ### Ports
@@ -24,7 +24,7 @@ Adminer (formerly phpMinAdmin) is a full-featured database management tool writt
 
 ### Reverse proxy
 
-https://github.com/Wonderfall/dockerfiles/tree/master/nginx
+https://github.com/Wonderfall/dockerfiles/tree/master/boring-nginx
 
 ### Docker-compose
 
