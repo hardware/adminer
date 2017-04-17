@@ -3,8 +3,8 @@ FROM alpine:3.5
 LABEL description "Adminer is a full-featured database management tool" \
       maintainer="Hardware <contact@meshup.net>"
 
-ARG VERSION=4.3.0
-ARG SHA256_HASH="0f9179d87f7c9d7cb3ec3b1a4e19b2437e5c07616b3d17703d5a3b938556e731"
+ARG VERSION=4.3.1
+ARG SHA256_HASH="c26f48bc06c195928dee9ca5d5a485d86a8b14d420368061fd8045ac26fcc701"
 
 ENV GID=991 UID=991
 
