@@ -1,4 +1,4 @@
-FROM alpine:3.5
+FROM alpine:3.6
 
 LABEL description "Adminer is a full-featured database management tool" \
       maintainer="Hardware <contact@meshup.net>"
@@ -8,12 +8,12 @@ ARG SHA256_HASH="c26f48bc06c195928dee9ca5d5a485d86a8b14d420368061fd8045ac26fcc70
 
 ENV GID=991 UID=991
 
-RUN echo "@community https://nl.alpinelinux.org/alpine/v3.5/community" >> /etc/apk/repositories \
- && BUILD_DEPS=" \
+RUN echo "@community https://nl.alpinelinux.org/alpine/v3.6/community" >> /etc/apk/repositories \
+ && apk -U upgrade \
+ && apk add -t build-dependencies \
     ca-certificates \
-    openssl" \
- && apk -U add \
-    ${BUILD_DEPS} \
+    openssl \
+ && apk add \
     su-exec \
     tini@community \
     php7@community \
@@ -31,7 +31,7 @@ RUN echo "@community https://nl.alpinelinux.org/alpine/v3.5/community" >> /etc/a
  && echo "All seems good, hash is valid." \
  && mkdir /adminer && mv ${ADMINER_FILE} /adminer/index.php \
  && wget -q https://raw.githubusercontent.com/vrana/adminer/master/designs/pepa-linha/adminer.css -P /adminer \
- && apk del ${BUILD_DEPS} \
+ && apk del build-dependencies \
  && rm -rf /var/cache/apk/* /tmp/*
 
 COPY run.sh /usr/local/bin/run.sh
