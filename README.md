@@ -22,15 +22,11 @@ Adminer (formerly phpMinAdmin) is a full-featured database management tool writt
 
 - **8888**
 
-### Reverse proxy
-
-https://github.com/Wonderfall/dockerfiles/tree/master/boring-nginx
-
 ### Docker-compose
 
 #### Docker-compose.yml
 
-```
+```yml
 adminer:
   image: hardware/adminer
   container_name: adminer

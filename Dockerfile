@@ -1,4 +1,4 @@
-FROM alpine:3.6
+FROM alpine:3.7
 
 LABEL description "Adminer is a full-featured database management tool" \
       maintainer="Hardware <contact@meshup.net>"
@@ -8,7 +8,7 @@ ARG SHA256_HASH="c26f48bc06c195928dee9ca5d5a485d86a8b14d420368061fd8045ac26fcc70
 
 ENV GID=991 UID=991
 
-RUN echo "@community https://nl.alpinelinux.org/alpine/v3.6/community" >> /etc/apk/repositories \
+RUN echo "@community https://nl.alpinelinux.org/alpine/v3.7/community" >> /etc/apk/repositories \
  && apk -U upgrade \
  && apk add -t build-dependencies \
     ca-certificates \
@@ -27,7 +27,7 @@ RUN echo "@community https://nl.alpinelinux.org/alpine/v3.6/community" >> /etc/a
  && wget -q https://github.com/vrana/adminer/releases/download/v${VERSION}/${ADMINER_FILE} \
  && echo "Verifying integrity of ${ADMINER_FILE}..." \
  && CHECKSUM=$(sha256sum ${ADMINER_FILE} | awk '{print $1}') \
- && if [ "${CHECKSUM}" != "${SHA256_HASH}" ]; then echo "Warning! Checksum does not match!" && exit 1; fi \
+ && if [ "${CHECKSUM}" != "${SHA256_HASH}" ]; then echo "ERROR: Checksum does not match!" && exit 1; fi \
  && echo "All seems good, hash is valid." \
  && mkdir /adminer && mv ${ADMINER_FILE} /adminer/index.php \
  && wget -q https://raw.githubusercontent.com/vrana/adminer/master/designs/pepa-linha/adminer.css -P /adminer \
