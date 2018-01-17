@@ -3,8 +3,8 @@ FROM alpine:3.7
 LABEL description "Adminer is a full-featured database management tool" \
       maintainer="Hardware <contact@meshup.net>"
 
-ARG VERSION=4.3.1
-ARG SHA256_HASH="c26f48bc06c195928dee9ca5d5a485d86a8b14d420368061fd8045ac26fcc701"
+ARG VERSION=4.4.0
+ARG SHA256_HASH="18400c26245de0d362a5cb261e62091e48887c9e983ad2e471adcd6943eb41e3"
 
 ENV GID=991 UID=991
 
@@ -25,10 +25,8 @@ RUN echo "@community https://nl.alpinelinux.org/alpine/v3.7/community" >> /etc/a
  # Download and install adminer and pepa-linha theme
  && ADMINER_FILE="adminer-${VERSION}.php" \
  && wget -q https://github.com/vrana/adminer/releases/download/v${VERSION}/${ADMINER_FILE} \
- && echo "Verifying integrity of ${ADMINER_FILE}..." \
  && CHECKSUM=$(sha256sum ${ADMINER_FILE} | awk '{print $1}') \
  && if [ "${CHECKSUM}" != "${SHA256_HASH}" ]; then echo "ERROR: Checksum does not match!" && exit 1; fi \
- && echo "All seems good, hash is valid." \
  && mkdir /adminer && mv ${ADMINER_FILE} /adminer/index.php \
  && wget -q https://raw.githubusercontent.com/vrana/adminer/master/designs/pepa-linha/adminer.css -P /adminer \
  && apk del build-dependencies \
