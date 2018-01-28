@@ -10,12 +10,12 @@ Adminer (formerly phpMinAdmin) is a full-featured database management tool writt
 
 - Lightweight & secure image (no root process)
 - Based on Alpine Linux
-- Latest adminer version (4.4.0)
+- Latest adminer version (4.5.0)
 - MySQL/MariaDB/PostgreSQL/SQLite drivers
 
 ### Built-time variables
 
-- **VERSION** : version of adminer (default: **4.4.0**)
+- **VERSION** : version of adminer (default: **4.5.0**)
 - **SHA256_HASH** : SHA256 hash of adminer php file
 
 ### Ports
