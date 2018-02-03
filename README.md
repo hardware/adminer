@@ -17,35 +17,31 @@ Adminer (formerly phpMinAdmin) is a full-featured database management tool writt
 
 - **VERSION** : version of adminer (default: **4.5.0**)
 - **SHA256_HASH** : SHA256 hash of adminer php file
+- **THEME** : alternative design (default: **pepa-linha**), [view full list](https://github.com/vrana/adminer/tree/master/designs).
 
 ### Ports
 
 - **8888**
 
-### Docker-compose
-
-#### Docker-compose.yml
+### Docker-compose.yml
 
 ```yml
-adminer:
-  image: hardware/adminer
-  container_name: adminer
-  links:
-    - mariadb:mariadb
+version: "3"
 
-mariadb:
-  image: mariadb:10.1
-  container_name: mariadb
-  volumes:
-    - /mnt/docker/mysql/db:/var/lib/mysql
-  environment:
-    - MYSQL_ROOT_PASSWORD=xxxx
-```
+services:
+  adminer:
+    image: hardware/adminer
+    container_name: adminer
+    depends_on:
+      - mariadb
 
-#### Run !
-
-```
-docker-compose up -d
+  mariadb:
+    image: mariadb:10.1
+    container_name: mariadb
+    volumes:
+      - /mnt/docker/mysql/db:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=xxxx
 ```
 
 ### Screenshots

@@ -5,6 +5,7 @@ LABEL description "Adminer is a full-featured database management tool" \
 
 ARG VERSION=4.5.0
 ARG SHA256_HASH="ccadc33019cb57a56a268d0d6be1a9e242dd0881dbddc06f376a06c7c5846ed0"
+ARG THEME=pepa-linha
 
 ENV GID=991 UID=991
 
@@ -22,13 +23,13 @@ RUN echo "@community https://nl.alpinelinux.org/alpine/v3.7/community" >> /etc/a
     php7-pdo_pgsql@community \
     php7-pdo_sqlite@community \
  && cd /tmp \
- # Download and install adminer and pepa-linha theme
+ # Download and install adminer and alternative design
  && ADMINER_FILE="adminer-${VERSION}.php" \
  && wget -q https://github.com/vrana/adminer/releases/download/v${VERSION}/${ADMINER_FILE} \
  && CHECKSUM=$(sha256sum ${ADMINER_FILE} | awk '{print $1}') \
  && if [ "${CHECKSUM}" != "${SHA256_HASH}" ]; then echo "ERROR: Checksum does not match!" && exit 1; fi \
  && mkdir /adminer && mv ${ADMINER_FILE} /adminer/index.php \
- && wget -q https://raw.githubusercontent.com/vrana/adminer/master/designs/pepa-linha/adminer.css -P /adminer \
+ && wget -q https://raw.githubusercontent.com/vrana/adminer/master/designs/${THEME}/adminer.css -P /adminer \
  && apk del build-dependencies \
  && rm -rf /var/cache/apk/* /tmp/*
 
