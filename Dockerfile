@@ -1,15 +1,15 @@
-FROM alpine:3.7
+FROM alpine:3.8
 
 LABEL description "Adminer is a full-featured database management tool" \
       maintainer="Hardware <contact@meshup.net>"
 
-ARG VERSION=4.6.2
-ARG SHA256_HASH="2b3e5e87ed1214288378fc272c1ba0497ec2f1128444e3a581eabd435f5575b9"
+ARG VERSION=4.6.3
+ARG SHA256_HASH="aa4a60ae2d1d0401cf26282451db8e57a1a66622e8048cdb3fd3a6db1f0f24e2"
 ARG THEME=pepa-linha
 
 ENV GID=991 UID=991
 
-RUN echo "@community https://nl.alpinelinux.org/alpine/v3.7/community" >> /etc/apk/repositories \
+RUN echo "@community https://nl.alpinelinux.org/alpine/v3.8/community" >> /etc/apk/repositories \
  && apk -U upgrade \
  && apk add -t build-dependencies \
     ca-certificates \
